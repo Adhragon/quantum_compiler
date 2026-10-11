@@ -1,0 +1,85 @@
+{
+  "test_regression": {
+    "count": 1134,
+    "mae": 0.6838193848019555,
+    "mse": 0.6698112481721735,
+    "rmse": 0.8184199705360161,
+    "r2": 0.6976183302512351
+  },
+  "test_regression_baseline_per_circuit_train_mean": {
+    "count": 1134,
+    "mae": 1.1135076605598146,
+    "mse": 1.944418520746671,
+    "rmse": 1.3944240821022387,
+    "r2": 0.12220566525531229
+  },
+  "test_ranking": {
+    "spearman": 0.7829438382523911,
+    "top_5_percent_overlap": 0.4561403508771929,
+    "aggregation": "macro average over circuits",
+    "per_circuit": {
+      "dj_5q": {
+        "spearman": 0.7523292961158392,
+        "top_5_percent_overlap": 0.42105263157894735,
+        "top_k": 19
+      },
+      "ghz_5q": {
+        "spearman": 0.8094984065487217,
+        "top_5_percent_overlap": 0.631578947368421,
+        "top_k": 19
+      },
+      "graphstate_5q": {
+        "spearman": 0.7870038120926126,
+        "top_5_percent_overlap": 0.3157894736842105,
+        "top_k": 19
+      }
+    }
+  },
+  "per_circuit": {
+    "dj_5q": {
+      "regression": {
+        "count": 378,
+        "mae": 0.619988516524986,
+        "mse": 0.5452781226517792,
+        "rmse": 0.7384294974144648,
+        "r2": 0.5862131124124255
+      },
+      "ranking": {
+        "spearman": 0.7523292961158392,
+        "top_5_percent_overlap": 0.42105263157894735,
+        "top_k": 19
+      }
+    },
+    "ghz_5q": {
+      "regression": {
+        "count": 378,
+        "mae": 0.7179422031634699,
+        "mse": 0.7517766320730681,
+        "rmse": 0.8670505360548877,
+        "r2": 0.704756002085821
+      },
+      "ranking": {
+        "spearman": 0.8094984065487217,
+        "top_5_percent_overlap": 0.631578947368421,
+        "top_k": 19
+      }
+    },
+    "graphstate_5q": {
+      "regression": {
+        "count": 378,
+        "mae": 0.7135274347174104,
+        "mse": 0.7123789897916734,
+        "rmse": 0.8440254675018245,
+        "r2": 0.6358695853936758
+      },
+      "ranking": {
+        "spearman": 0.7870038120926126,
+        "top_5_percent_overlap": 0.3157894736842105,
+        "top_k": 19
+      }
+    }
+  },
+  "test_count": 1134,
+  "validation_used_for_checkpoint_selection": true,
+  "test_used_for_checkpoint_selection": false
+}

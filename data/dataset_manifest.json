@@ -1,0 +1,247 @@
+{
+  "status": "complete",
+  "dataset_sha256": "2b95d1a4978d522e7a60ce1a93f48c2c8e5c05b68c2c706b5f6fbec66bda577f",
+  "configuration": {
+    "project_name": "Quantum Compiler - GNN-Based Qubit Allocation",
+    "phase": 2,
+    "seed": 42,
+    "hardware": {
+      "backend": "FakeJakartaV2",
+      "expected_physical_qubits": 7
+    },
+    "benchmarks": [
+      {
+        "name": "dj",
+        "label": "dj_5q",
+        "logical_qubits": 5,
+        "source": "MQT Bench"
+      },
+      {
+        "name": "ghz",
+        "label": "ghz_5q",
+        "logical_qubits": 5,
+        "source": "MQT Bench"
+      },
+      {
+        "name": "graphstate",
+        "label": "graphstate_5q",
+        "logical_qubits": 5,
+        "source": "MQT Bench"
+      }
+    ],
+    "dataset": {
+      "exhaustive": true,
+      "output_csv": "data/phase2_data.csv",
+      "manifest": "data/dataset_manifest.json"
+    },
+    "model": {
+      "hidden_dim": 64,
+      "gcn_layers": 2,
+      "mlp_hidden_dim": 128,
+      "dropout": 0.15,
+      "learning_rate": 0.001,
+      "weight_decay": 0.0001,
+      "batch_size": 128,
+      "epochs": 250,
+      "patience": 25
+    },
+    "split": {
+      "train": 0.7,
+      "validation": 0.15,
+      "test": 0.15
+    },
+    "routing": {
+      "method": "sabre",
+      "layout_method_fixed": "trivial",
+      "basis_gates": [
+        "cx",
+        "id",
+        "rz",
+        "sx",
+        "x",
+        "swap"
+      ],
+      "optimization_level": 0,
+      "seed_transpiler": 42
+    },
+    "evaluation": {
+      "random_layout_samples": 100,
+      "all_candidate_layouts": 2520
+    }
+  },
+  "package_versions": {
+    "python": "3.12.3",
+    "torch": "2.14.0+cpu",
+    "torch_geometric": "2.8.0.post1",
+    "qiskit": "2.5.2",
+    "qiskit_aer": "0.17.2",
+    "qiskit_ibm_runtime": "0.50.0",
+    "mqt.bench": "2.3.0",
+    "numpy": "2.5.4",
+    "pandas": "2.3.3"
+  },
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "hardware": {
+    "name": "FakeJakartaV2",
+    "num_qubits": 7,
+    "directed_coupling_edges": [
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        2,
+        1
+      ],
+      [
+        3,
+        1
+      ],
+      [
+        3,
+        5
+      ],
+      [
+        4,
+        5
+      ],
+      [
+        5,
+        3
+      ],
+      [
+        5,
+        4
+      ],
+      [
+        5,
+        6
+      ],
+      [
+        6,
+        5
+      ]
+    ]
+  },
+  "circuits": {
+    "dj_5q": {
+      "benchmark": "dj",
+      "source": "MQT Bench",
+      "summary": {
+        "name": "dj_5q",
+        "num_qubits": 5,
+        "circuit_size": 36,
+        "depth": 11,
+        "operation_counts": {
+          "rz": 18,
+          "sx": 9,
+          "x": 5,
+          "cx": 4
+        }
+      },
+      "logical_qubits": 5,
+      "total_possible_layouts": 2520,
+      "attempted_layouts": 2520,
+      "successful_layouts": 2520
+    },
+    "ghz_5q": {
+      "benchmark": "ghz",
+      "source": "MQT Bench",
+      "summary": {
+        "name": "ghz_5q",
+        "num_qubits": 5,
+        "circuit_size": 7,
+        "depth": 7,
+        "operation_counts": {
+          "cx": 4,
+          "rz": 2,
+          "sx": 1
+        }
+      },
+      "logical_qubits": 5,
+      "total_possible_layouts": 2520,
+      "attempted_layouts": 2520,
+      "successful_layouts": 2520
+    },
+    "graphstate_5q": {
+      "benchmark": "graphstate",
+      "source": "MQT Bench",
+      "summary": {
+        "name": "graphstate_5q",
+        "num_qubits": 5,
+        "circuit_size": 50,
+        "depth": 22,
+        "operation_counts": {
+          "rz": 30,
+          "sx": 15,
+          "cx": 5
+        }
+      },
+      "logical_qubits": 5,
+      "total_possible_layouts": 2520,
+      "attempted_layouts": 2520,
+      "successful_layouts": 2520
+    }
+  },
+  "failed_routes": [],
+  "rows_written": 7560,
+  "distribution": {
+    "dj_5q": {
+      "count": 2520,
+      "swap_min": 1,
+      "swap_max": 6,
+      "swap_mean": 3.86984126984127,
+      "swap_std": 1.1665489628563581,
+      "routing_seconds_mean": 0.0030086198412698413,
+      "unique_layouts": 2520
+    },
+    "ghz_5q": {
+      "count": 2520,
+      "swap_min": 0,
+      "swap_max": 8,
+      "swap_mean": 4.544444444444444,
+      "swap_std": 1.5686692143522283,
+      "routing_seconds_mean": 0.002851980555555556,
+      "unique_layouts": 2520
+    },
+    "graphstate_5q": {
+      "count": 2520,
+      "swap_min": 2,
+      "swap_max": 9,
+      "swap_mean": 5.285714285714286,
+      "swap_std": 1.474153740863103,
+      "routing_seconds_mean": 0.002891970238095238,
+      "unique_layouts": 2520
+    }
+  },
+  "generation_seconds": 23.258,
+  "exhaustive": true,
+  "expected_rows_if_exhaustive": 7560,
+  "dataset_columns": [
+    "circuit",
+    "logical_qubits",
+    "physical_qubits",
+    "layout",
+    "swap_count",
+    "source_swap_count",
+    "cx_count",
+    "two_qubit_gate_count",
+    "depth",
+    "total_gates",
+    "routing_seconds",
+    "seed",
+    "benchmark_source"
+  ]
+}
