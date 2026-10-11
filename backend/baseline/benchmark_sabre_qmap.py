@@ -24,6 +24,7 @@ Don't run it with python baseline/benchmark_sabre_qmap.py directly — that brea
 
 from __future__ import annotations
 
+import os
 import time
 import traceback
 from dataclasses import dataclass, field
@@ -32,7 +33,7 @@ import pandas as pd
 
 from qiskit import transpile
 
-from config import get_backend , get_bench_circuit , load_benchmark_circuits
+from config import BASELINE_CSV, get_backend , get_bench_circuit , load_benchmark_circuits
 from evaluation.metrics import count_swaps, total_gate_count, estimated_fidelity, _reorder_statevector , state_fidelity_vs_ideal 
 
 # ---------------------------------------------------------------------------
@@ -66,7 +67,34 @@ def run_sabre(qc, backend):
         seed_transpiler=SEED,
     )
     t1 = time.perf_counter()
-    return compiled, (t1 - t0)
+    return compiled, (t1 - t0), count_sabre_swaps(qc, backend)
+
+
+def count_sabre_swaps(qc, backend):
+    """SWAPs inserted by SABRE routing. count_swaps(compiled) always reports 0
+    for SABRE because BasisTranslator later decomposes every SWAP into 3 CXs,
+    so instead re-run the identical (seeded) transpile with a callback and
+    measure how many SWAPs the routing passes add. Done as a separate run so
+    the callback overhead doesn't pollute compile_time_s."""
+    state = {"prev": 0, "inserted": 0}
+
+    def cb(pass_, dag, **_):
+        n = dag.count_ops().get("swap", 0)
+        # SabreLayout routes internally at O3; SabreSwap covers other configs.
+        if pass_.name() in ("SabreLayout", "SabreSwap"):
+            state["inserted"] += max(0, n - state["prev"])
+        state["prev"] = n
+
+    transpile(
+        qc,
+        backend=backend,
+        optimization_level=SABRE_OPT_LEVEL,
+        layout_method="sabre",
+        routing_method="sabre",
+        seed_transpiler=SEED,
+        callback=cb,
+    )
+    return state["inserted"]
 
 def run_qmap(qc, backend):
     from mqt.qmap.plugins.qiskit.sc import compile_ as qmap_compile
@@ -135,13 +163,13 @@ def main():
 
         # ---- SABRE ----
         try:
-            sabre_qc, sabre_time = run_sabre(qc, backend)
+            sabre_qc, sabre_time, sabre_swaps = run_sabre(qc, backend)
             sf, leak = state_fidelity_vs_ideal(qc, sabre_qc)
             rows.append(Row(
                 circuit=name,
                 method="SABRE",
                 depth=sabre_qc.depth(),
-                swaps=count_swaps(sabre_qc),
+                swaps=sabre_swaps,
                 total_gates=total_gate_count(sabre_qc),
                 compile_time_s=sabre_time,
                 estimated_fidelity=estimated_fidelity(sabre_qc, backend),
@@ -184,7 +212,8 @@ def main():
     print("\n\n===================== RESULTS =====================")
     print(df.to_string(index=False))
 
-    out_csv = "sabre_vs_qmap_results.csv"
+    out_csv = BASELINE_CSV
+    os.makedirs(os.path.dirname(out_csv), exist_ok=True)
     df.to_csv(out_csv, index=False)
     print(f"\nSaved results to {out_csv}")
 

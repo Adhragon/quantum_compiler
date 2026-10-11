@@ -34,6 +34,7 @@ SABRE_OPT_LEVEL = 3
 
 RESULTS_DIR = "evaluation/results"
 BASELINE_CSV = f"{RESULTS_DIR}/sabre_vs_qmap_results.csv"
+RL_RESULTS_CSV = f"{RESULTS_DIR}/rl_results.csv"
 GNN_CHECKPOINT = "gnn/checkpoints/gcn.pt"
 RL_CHECKPOINT = "rl/checkpoints/sb3_agent.zip"
 GNN_RL_CHECKPOINT = "gnn_rl/checkpoints/sb3_agent_gnn.zip"
@@ -65,11 +66,14 @@ def get_bench_circuit(name: str, size: int = CIRCUIT_SIZE):
     """Load a single MQT Bench algorithm-level circuit, handling both the
     current enum-based API and the older string-level API."""
     from mqt.bench import get_benchmark
+    # graphstate builds a random regular graph on every call unless seeded, so
+    # without this each phase would be scored on a different circuit.
+    kwargs = {"seed": SEED} if name == "graphstate" else {}
     try:
         from mqt.bench import BenchmarkLevel
-        return get_benchmark(name, BenchmarkLevel.ALG, size)
+        return get_benchmark(name, BenchmarkLevel.ALG, size, **kwargs)
     except ImportError:
-        return get_benchmark(benchmark_name=name, level=BENCHMARK_LEVEL, circuit_size=size)
+        return get_benchmark(benchmark_name=name, level=BENCHMARK_LEVEL, circuit_size=size, **kwargs)
 
 
 def load_benchmark_circuits(names: list[str] | None = None, size: int = CIRCUIT_SIZE) -> dict:
