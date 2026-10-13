@@ -29,9 +29,6 @@ from qubit_allocation.circuits import prepare_for_routing
 from qubit_allocation.graph_features import build_circuit_graph
 from qubit_allocation.train import _to_model_batch
 
-# Tiny per-step forward passes: thread start-up costs more than the math.
-torch.set_num_threads(1)
-
 
 class GNNObservation:
     def __init__(self, backend=None, seed: int = 42):

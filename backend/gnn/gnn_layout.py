@@ -29,6 +29,10 @@ from qubit_allocation.train import _to_model_batch  # noqa: E402
 
 CHECKPOINT = GNN_ROOT / "models" / "best_gnn_scorer.pt"
 
+# The scorer is small: on a 4-thread laptop CPU, PyTorch's default thread pool
+# oversubscribes and scoring all 2,520 layouts runs ~3x slower than on 1 thread.
+torch.set_num_threads(1)
+
 
 class GNNLayoutSelector:
     def __init__(self, backend=None, checkpoint: Path = CHECKPOINT, seed: int = 42):
@@ -57,12 +61,17 @@ class GNNLayoutSelector:
                 out.append(norm.cpu().numpy() * self.target_std + self.target_mean)
         return np.maximum(np.concatenate(out), 0.0)
 
-    def select(self, qc) -> tuple[list[int], float, float]:
-        """Score every injective layout; return (best layout, its predicted
-        SWAPs, scoring seconds). Ties go to the first layout in enumeration
-        order, matching qubit_allocation.evaluate."""
+    def top_k(self, qc, k: int) -> tuple[list[list[int]], np.ndarray, float]:
+        """Score every injective layout; return the k with the lowest predicted
+        SWAPs (best first), their predictions, and scoring seconds. Ties keep
+        enumeration order, matching qubit_allocation.evaluate."""
         t0 = time.perf_counter()
         layouts = [list(l) for l in all_layouts(qc.num_qubits, self.backend.num_qubits)]
         pred = self.predict(qc, layouts)
-        best = int(np.argmin(pred))
-        return layouts[best], float(pred[best]), time.perf_counter() - t0
+        order = np.argsort(pred, kind="stable")[:k]
+        return [layouts[i] for i in order], pred[order], time.perf_counter() - t0
+
+    def select(self, qc) -> tuple[list[int], float, float]:
+        """Best single layout: (layout, predicted SWAPs, scoring seconds)."""
+        layouts, pred, seconds = self.top_k(qc, 1)
+        return layouts[0], float(pred[0]), seconds

@@ -4,7 +4,9 @@ the greedy baseline) and score them with the same metrics as Phase 1.
 
 Pipeline per circuit (mirrors SABRE at optimization_level=3 so the comparison
 is routing-vs-routing):
-  1. initial layout = SABRE's layout, or the GNN-selected layout (Phase 4B)
+  1. initial layout = SABRE's layout, the GNN's best-predicted layout (4B), or
+                      the GNN's top-20 layouts, each routed, fewest SWAPs kept
+                      (ties: lower depth; time covers every candidate)
   2. routing        = RL policy (or greedy) inserts SWAPs
   3. post-routing   = Qiskit O3 translation + optimization with layout fixed
                       and routing disabled (identical to what SABRE gets
@@ -16,7 +18,7 @@ Agents evaluated:
   rl/checkpoints/*.zip       Phase 3 agents (observation = routing state)
   gnn_rl/checkpoints/*.zip   Phase 4A agents (observation + GNN embeddings)
 
-Method names: <policy>[+GNN_layout], e.g. RL_sb3_agent_seed1+GNN_layout.
+Method names: <policy>[+GNN_layout | +GNN_top20_layout], e.g. RL_sb3_agent_seed1+GNN_layout.
 
 RUN (from backend/, after training):
     python -m rl.evaluate                    # all checkpoints, both layouts
@@ -43,6 +45,7 @@ from rl.env import RoutingEnv
 from rl.train import route
 
 GNN_RESULTS_CSV = f"{RESULTS_DIR}/gnn_results.csv"
+TOP_K = 20  # same shortlist size as gnn.evaluate_shared
 
 
 def post_routing_pm(backend):
@@ -73,15 +76,24 @@ def score(name, method, qc, compiled, swaps, compile_time, backend, notes=""):
 
 def evaluate_policy(method, policy, env, bench, pm, backend, layout_key):
     """policy(env, task, layout) -> swaps; must leave env holding the routed episode.
-    bench[name] = (qc, task, {layout_key: (layout, layout_seconds)})."""
+    bench[name] = (qc, task, {layout_key: (candidate layouts, layout_seconds)}).
+    Every candidate is routed; the one with the fewest SWAPs (ties: lower
+    depth) is reported, and compile time covers all of them."""
     rows = []
     for name, (qc, task, layouts) in bench.items():
-        layout, layout_time = layouts[layout_key]
+        candidates, layout_time = layouts[layout_key]
         t0 = time.perf_counter()
-        swaps = policy(env, task, layout)
-        compiled = pm.run(env.routed_circuit())
+        best = None
+        for rank, layout in enumerate(candidates, start=1):
+            swaps = policy(env, task, layout)
+            compiled = pm.run(env.routed_circuit())
+            key = (swaps, compiled.depth())
+            if best is None or key < best[0]:
+                best = (key, swaps, compiled, layout, rank, env.used_fallback)
         dt = time.perf_counter() - t0 + layout_time
-        notes = f"layout={layout}" + ("; shortest-path fallback used" if env.used_fallback else "")
+        _, swaps, compiled, layout, rank, fallback = best
+        notes = f"layout={layout}" + (f" gnn_rank={rank}" if len(candidates) > 1 else "")
+        notes += "; shortest-path fallback used" if fallback else ""
         rows.append(score(name, method, qc, compiled, swaps, dt, backend, notes))
     return rows
 
@@ -127,10 +139,11 @@ def main():
     bench, sabre_swaps = {}, {}
     for name, qc in circuits.items():
         layout, sabre_swaps[name] = sabre_layout_and_swaps(qc, backend, SEED)
-        layouts = {"SABRE": (layout, 0.0)}
+        layouts = {"SABRE": ([layout], 0.0)}
         if not args.no_gnn_layout:
-            gnn_layout, _, gnn_time = selector.select(qc)
-            layouts["GNN"] = (gnn_layout, gnn_time)
+            top, _, gnn_time = selector.top_k(qc, TOP_K)
+            layouts["GNN"] = (top[:1], gnn_time)
+            layouts[f"GNN_top{TOP_K}"] = (top, gnn_time)
         bench[name] = (qc, circuit_to_task(qc, name, backend), layouts)
     layout_keys = list(next(iter(bench.values()))[2])
 
@@ -187,7 +200,11 @@ def main():
                              "RL + GNN obs (4A)": swaps.get("RL_GNNobs_sb3_agent_gnn")},
             "GNN layout": {"SABRE routing": swaps.get("GNN_layout+SABRE"),
                            "RL routing": swaps.get("RL_sb3_agent+GNN_layout"),
-                           "RL + GNN obs (4A)": swaps.get("RL_GNNobs_sb3_agent_gnn+GNN_layout")}}
+                           "RL + GNN obs (4A)": swaps.get("RL_GNNobs_sb3_agent_gnn+GNN_layout")},
+            f"GNN top-{TOP_K} layouts": {
+                "SABRE routing": swaps.get(f"GNN_top{TOP_K}+SABRE"),
+                "RL routing": swaps.get(f"RL_sb3_agent+GNN_top{TOP_K}_layout"),
+                "RL + GNN obs (4A)": swaps.get(f"RL_GNNobs_sb3_agent_gnn+GNN_top{TOP_K}_layout")}}
     print("\n=== total SWAPs: layout x routing (RL = mean over seeds; blank = not run) ===")
     print(pd.DataFrame(grid).T.to_string(na_rep=""))
     print(f"\nSABRE routing-only SWAPs (SABRE layouts): {sabre_swaps}")
