@@ -1,0 +1,72 @@
+=== seed 42 ===
+SABRE reference: total=7  ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+training GNNobs_MaskablePPO_seed42 for 200,000 steps -> gnn_rl/checkpoints/sb3_agent_gnn.zip
+[   10000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0  <- saved
+[   20000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[   30000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[   40000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[   50000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[   60000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[   70000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[   80000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[   90000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[  100000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[  110000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[  120000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[  130000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[  140000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[  150000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[  160000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[  170000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[  180000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[  190000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[  200000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+done in 13.7 min  best total SWAPs=7 (SABRE=7)
+=== seed 1 ===
+SABRE reference: total=7  ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+training GNNobs_MaskablePPO_seed1 for 200,000 steps -> gnn_rl/checkpoints/sb3_agent_gnn_seed1.zip
+[   10000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0  <- saved
+[   20000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[   30000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[   40000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[   50000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[   60000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[   70000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[   80000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[   90000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[  100000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[  110000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[  120000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[  130000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[  140000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[  150000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[  160000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[  170000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[  180000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[  190000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[  200000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+done in 13.2 min  best total SWAPs=7 (SABRE=7)
+=== seed 2 ===
+SABRE reference: total=7  ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+training GNNobs_MaskablePPO_seed2 for 200,000 steps -> gnn_rl/checkpoints/sb3_agent_gnn_seed2.zip
+[   10000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0  <- saved
+[   20000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[   30000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[   40000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[   50000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[   60000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[   70000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[   80000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[   90000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[  100000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[  110000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[  120000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[  130000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[  140000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[  150000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[  160000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[  170000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[  180000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[  190000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+[  200000] total=7   ghz=0  dj=1  graphstate=2  qft=4  wstate=0
+done in 13.0 min  best total SWAPs=7 (SABRE=7)

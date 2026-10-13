@@ -1,0 +1,21 @@
+
+=== totals over 5 circuits (n>1: mean +/- std over seeds) ===
+                                                  depth           swaps     total_gates       compile_time_s  estimated_fidelity state_fidelity
+SABRE                                               127               7             203              0.04041              0.9056              1
+MQT_QMAP                                            124              15             192             0.005844              0.8954              1
+GNN_layout+SABRE                                    139              10             230                8.207              0.8902              1
+GREEDY                                              129               7             207              0.02115              0.9074              1
+GREEDY+GNN_layout                                   143               9             219                  7.4               0.891              1
+RL_sb3_agent (n=3)                        128.3 +/- 1.2         7 +/- 0  202.3 +/- 0.58  0.02284 +/- 0.00092  0.9048 +/- 0.00072        1 +/- 0
+RL_sb3_agent+GNN_layout (n=3)             142.7 +/- 3.1        11 +/- 1   222.3 +/- 5.1      7.414 +/- 0.012   0.8867 +/- 0.0039  1 +/- 2.5e-16
+RL_GNNobs_sb3_agent_gnn (n=3)                 129 +/- 0         7 +/- 0   203.7 +/- 2.9    0.06105 +/- 0.011   0.9054 +/- 0.0018        1 +/- 0
+RL_GNNobs_sb3_agent_gnn+GNN_layout (n=3)  145.3 +/- 3.2  9.333 +/- 0.58   222.3 +/- 4.9     7.443 +/- 0.0035   0.8894 +/- 0.0014  1 +/- 2.7e-16
+(estimated_fidelity = mean over circuits, state_fidelity = worst circuit)
+
+=== total SWAPs: layout x routing (RL = mean over seeds; blank = not run) ===
+              SABRE routing  RL routing  RL + GNN obs (4A)
+SABRE layout            7.0         7.0           7.000000
+GNN layout             10.0        11.0           9.333333
+
+SABRE routing-only SWAPs (SABRE layouts): {'ghz': 0, 'dj': 1, 'graphstate': 2, 'qft': 4, 'wstate': 0}
+Saved evaluation/results/rl_results.csv

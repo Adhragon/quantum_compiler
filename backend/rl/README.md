@@ -100,6 +100,7 @@ everywhere, so every routed circuit is correct.
 
 ## Caveats for the report
 
+- Checkpoint selection (`train.py` keeps the run's fewest-SWAP checkpoint on the 5 benchmarks from SABRE's layout) uses the evaluation setting itself. Every seed reached SABRE's 7 SWAPs at its first evaluation (10k steps), and ties keep the earliest checkpoint. Phase 4's GNN-layout rows (see `gnn_rl/README.md`) were not used for selection.
 - Evaluation circuits are in the training set (see above).
 - With 5-qubit circuits, the greedy router already matches SABRE's SWAP count. The realistic claim is that RL matches SABRE, not that it beats it.
 - State fidelity is computed for all 5 circuits because it is cheap at 7 qubits. It checks correctness and is 1.0 for every routed circuit; noise is reflected only in the estimated fidelity.
