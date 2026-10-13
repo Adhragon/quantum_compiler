@@ -1,0 +1,123 @@
+{
+  "test_regression": {
+    "count": 1890,
+    "mae": 0.8680700867264359,
+    "mse": 1.2103178497614395,
+    "rmse": 1.1001444676775134,
+    "r2": 0.8501420185047632
+  },
+  "test_regression_baseline_per_circuit_train_mean": {
+    "count": 1890,
+    "mae": 1.2591656768527517,
+    "mse": 2.5287801036262327,
+    "rmse": 1.590213854683147,
+    "r2": 0.6868939162969152
+  },
+  "test_ranking": {
+    "spearman": 0.6812129727293057,
+    "top_5_percent_overlap": 0.4631578947368421,
+    "aggregation": "macro average over circuits",
+    "per_circuit": {
+      "dj_5q": {
+        "spearman": 0.7523661924719802,
+        "top_5_percent_overlap": 0.42105263157894735,
+        "top_k": 19
+      },
+      "ghz_5q": {
+        "spearman": 0.8048962566419683,
+        "top_5_percent_overlap": 0.6842105263157895,
+        "top_k": 19
+      },
+      "graphstate_5q": {
+        "spearman": 0.7864361412506623,
+        "top_5_percent_overlap": 0.3157894736842105,
+        "top_k": 19
+      },
+      "qft_5q": {
+        "spearman": 0.33573312138264305,
+        "top_5_percent_overlap": 0.2631578947368421,
+        "top_k": 19
+      },
+      "wstate_5q": {
+        "spearman": 0.726633151899275,
+        "top_5_percent_overlap": 0.631578947368421,
+        "top_k": 19
+      }
+    }
+  },
+  "per_circuit": {
+    "dj_5q": {
+      "regression": {
+        "count": 378,
+        "mae": 0.6257165405485365,
+        "mse": 0.5644537059419954,
+        "rmse": 0.7513013416346302,
+        "r2": 0.5716616301546236
+      },
+      "ranking": {
+        "spearman": 0.7523661924719802,
+        "top_5_percent_overlap": 0.42105263157894735,
+        "top_k": 19
+      }
+    },
+    "ghz_5q": {
+      "regression": {
+        "count": 378,
+        "mae": 0.7207791647583088,
+        "mse": 0.7528271535606467,
+        "rmse": 0.8676561263315362,
+        "r2": 0.7043434325130848
+      },
+      "ranking": {
+        "spearman": 0.8048962566419683,
+        "top_5_percent_overlap": 0.6842105263157895,
+        "top_k": 19
+      }
+    },
+    "graphstate_5q": {
+      "regression": {
+        "count": 378,
+        "mae": 0.7056466214871281,
+        "mse": 0.7056046327675893,
+        "rmse": 0.8400027575952291,
+        "r2": 0.6393322779593175
+      },
+      "ranking": {
+        "spearman": 0.7864361412506623,
+        "top_5_percent_overlap": 0.3157894736842105,
+        "top_k": 19
+      }
+    },
+    "qft_5q": {
+      "regression": {
+        "count": 378,
+        "mae": 1.2536892991848092,
+        "mse": 2.4785828292557635,
+        "rmse": 1.5743515583425969,
+        "r2": 0.16921622914446566
+      },
+      "ranking": {
+        "spearman": 0.33573312138264305,
+        "top_5_percent_overlap": 0.2631578947368421,
+        "top_k": 19
+      }
+    },
+    "wstate_5q": {
+      "regression": {
+        "count": 378,
+        "mae": 1.0345188076533969,
+        "mse": 1.5501209272812022,
+        "rmse": 1.2450385244164945,
+        "r2": 0.5898964803654899
+      },
+      "ranking": {
+        "spearman": 0.726633151899275,
+        "top_5_percent_overlap": 0.631578947368421,
+        "top_k": 19
+      }
+    }
+  },
+  "test_count": 1890,
+  "validation_used_for_checkpoint_selection": true,
+  "test_used_for_checkpoint_selection": false
+}

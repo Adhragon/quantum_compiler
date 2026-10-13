@@ -11,3 +11,8 @@ frontend/dist/
 .env
 .env.*
 !.env.example
+rl/logs/
+backend/rl/logs/
+!backend/evaluation/results/*.csv
+!backend/gnn/data/*.csv
+!backend/gnn/results/*.csv

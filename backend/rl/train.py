@@ -10,6 +10,7 @@ RUN (from backend/):
     python -m rl.train                      # 200k steps, ~10-15 min on CPU
     python -m rl.train --timesteps 20000    # quick check
     python -m rl.train --no-mask            # plain PPO, for comparison
+    python -m rl.train --gnn-obs            # Phase 4A: + GNN embeddings in the observation
 
 Learning curves (optional, separate terminal, from backend/):
     tensorboard --logdir rl/logs
@@ -26,7 +27,7 @@ from stable_baselines3 import PPO
 from stable_baselines3.common.callbacks import BaseCallback
 from stable_baselines3.common.monitor import Monitor
 
-from config import RL_CHECKPOINT, SEED, get_backend, load_benchmark_circuits
+from config import GNN_RL_CHECKPOINT, RL_CHECKPOINT, SEED, get_backend, load_benchmark_circuits
 from rl.circuit_utils import circuit_to_task, sabre_layout_and_swaps
 from rl.env import RoutingEnv
 
@@ -80,6 +81,8 @@ def main():
     ap.add_argument("--eval-freq", type=int, default=10_000)
     ap.add_argument("--seed", type=int, default=SEED)
     ap.add_argument("--no-mask", action="store_true", help="plain PPO without action masking")
+    ap.add_argument("--gnn-obs", action="store_true",
+                    help="Phase 4A: append GNN embeddings to the observation (needs trained gnn/)")
     args = ap.parse_args()
     masked = not args.no_mask
 
@@ -95,14 +98,19 @@ def main():
     print("SABRE reference: total=%d  %s" % (
         sabre_total, "  ".join(f"{n}={s}" for n, (*_, s) in bench.items())))
 
-    train_env = Monitor(RoutingEnv(backend, tasks=list(tasks.values())))
+    env_kwargs = {}
+    if args.gnn_obs:
+        from gnn_rl.features import GNNObservation
+        feat = GNNObservation(backend)
+        env_kwargs = {"extra_obs_dim": feat.dim, "extra_obs_fn": feat}
+    train_env = Monitor(RoutingEnv(backend, tasks=list(tasks.values()), **env_kwargs))
     train_env.reset(seed=args.seed)
-    eval_env = RoutingEnv(backend, tasks=list(tasks.values()))
+    eval_env = RoutingEnv(backend, tasks=list(tasks.values()), **env_kwargs)
 
     algo = MaskablePPO if masked else PPO
-    run_name = f"{algo.__name__}_seed{args.seed}"
+    run_name = ("GNNobs_" if args.gnn_obs else "") + f"{algo.__name__}_seed{args.seed}"
     suffix = ("" if masked else "_nomask") + ("" if args.seed == SEED else f"_seed{args.seed}")
-    save_path = RL_CHECKPOINT.replace(".zip", f"{suffix}.zip")
+    save_path = (GNN_RL_CHECKPOINT if args.gnn_obs else RL_CHECKPOINT).replace(".zip", f"{suffix}.zip")
     os.makedirs(os.path.dirname(save_path), exist_ok=True)
 
     model = algo(

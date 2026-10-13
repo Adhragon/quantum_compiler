@@ -35,7 +35,7 @@ SABRE_OPT_LEVEL = 3
 RESULTS_DIR = "evaluation/results"
 BASELINE_CSV = f"{RESULTS_DIR}/sabre_vs_qmap_results.csv"
 RL_RESULTS_CSV = f"{RESULTS_DIR}/rl_results.csv"
-GNN_CHECKPOINT = "gnn/checkpoints/gcn.pt"
+GNN_CHECKPOINT = "gnn/models/best_gnn_scorer.pt"
 RL_CHECKPOINT = "rl/checkpoints/sb3_agent.zip"
 GNN_RL_CHECKPOINT = "gnn_rl/checkpoints/sb3_agent_gnn.zip"
 

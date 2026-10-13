@@ -1,0 +1,677 @@
+{
+  "status": "completed",
+  "device": "cpu",
+  "torch_version": "2.14.1+cpu",
+  "checkpoint": "models\\best_gnn_scorer.pt",
+  "test_split_counts": {
+    "dj_5q": 378,
+    "ghz_5q": 378,
+    "graphstate_5q": 378,
+    "qft_5q": 378,
+    "wstate_5q": 378
+  },
+  "test_regression_metrics": {
+    "count": 1890,
+    "mae": 0.8680700867264359,
+    "mse": 1.2103178497614395,
+    "rmse": 1.1001444676775134,
+    "r2": 0.8501420185047632
+  },
+  "test_regression_baseline_per_circuit_train_mean": {
+    "count": 1890,
+    "mae": 1.2591656768527517,
+    "mse": 2.5287801036262327,
+    "rmse": 1.590213854683147,
+    "r2": 0.6868939162969152
+  },
+  "train_set_circuit_mean_labels": {
+    "dj_5q": 3.869047619047619,
+    "ghz_5q": 4.537414965986395,
+    "graphstate_5q": 5.29421768707483,
+    "qft_5q": 10.479024943310657,
+    "wstate_5q": 5.293083900226757
+  },
+  "test_ranking_metrics": {
+    "spearman": 0.6812129727293057,
+    "top_5_percent_overlap": 0.4631578947368421,
+    "aggregation": "macro average over circuits",
+    "per_circuit": {
+      "dj_5q": {
+        "spearman": 0.7523661924719802,
+        "top_5_percent_overlap": 0.42105263157894735,
+        "top_k": 19
+      },
+      "ghz_5q": {
+        "spearman": 0.8048962566419683,
+        "top_5_percent_overlap": 0.6842105263157895,
+        "top_k": 19
+      },
+      "graphstate_5q": {
+        "spearman": 0.7864361412506623,
+        "top_5_percent_overlap": 0.3157894736842105,
+        "top_k": 19
+      },
+      "qft_5q": {
+        "spearman": 0.33573312138264305,
+        "top_5_percent_overlap": 0.2631578947368421,
+        "top_k": 19
+      },
+      "wstate_5q": {
+        "spearman": 0.726633151899275,
+        "top_5_percent_overlap": 0.631578947368421,
+        "top_k": 19
+      }
+    }
+  },
+  "test_metrics_by_circuit": {
+    "dj_5q": {
+      "regression": {
+        "count": 378,
+        "mae": 0.6257165405485365,
+        "mse": 0.5644537059419954,
+        "rmse": 0.7513013416346302,
+        "r2": 0.5716616301546236
+      },
+      "ranking": {
+        "spearman": 0.7523661924719802,
+        "top_5_percent_overlap": 0.42105263157894735,
+        "top_k": 19
+      }
+    },
+    "ghz_5q": {
+      "regression": {
+        "count": 378,
+        "mae": 0.7207791647583088,
+        "mse": 0.7528271535606467,
+        "rmse": 0.8676561263315362,
+        "r2": 0.7043434325130848
+      },
+      "ranking": {
+        "spearman": 0.8048962566419683,
+        "top_5_percent_overlap": 0.6842105263157895,
+        "top_k": 19
+      }
+    },
+    "graphstate_5q": {
+      "regression": {
+        "count": 378,
+        "mae": 0.7056466214871281,
+        "mse": 0.7056046327675893,
+        "rmse": 0.8400027575952291,
+        "r2": 0.6393322779593175
+      },
+      "ranking": {
+        "spearman": 0.7864361412506623,
+        "top_5_percent_overlap": 0.3157894736842105,
+        "top_k": 19
+      }
+    },
+    "qft_5q": {
+      "regression": {
+        "count": 378,
+        "mae": 1.2536892991848092,
+        "mse": 2.4785828292557635,
+        "rmse": 1.5743515583425969,
+        "r2": 0.16921622914446566
+      },
+      "ranking": {
+        "spearman": 0.33573312138264305,
+        "top_5_percent_overlap": 0.2631578947368421,
+        "top_k": 19
+      }
+    },
+    "wstate_5q": {
+      "regression": {
+        "count": 378,
+        "mae": 1.0345188076533969,
+        "mse": 1.5501209272812022,
+        "rmse": 1.2450385244164945,
+        "r2": 0.5898964803654899
+      },
+      "ranking": {
+        "spearman": 0.726633151899275,
+        "top_5_percent_overlap": 0.631578947368421,
+        "top_k": 19
+      }
+    }
+  },
+  "dataset_sha256": "f547c671e018d178560b4b872ade5cff9715ed32ee6570956e933363811d9093",
+  "config_sha256": "5c0575b9f46b88c8f95867c41112856c5e46d2e8d9c4794871f663468e2c9c29",
+  "test_set_only": true,
+  "exhaustive_layout_scoring": true,
+  "layouts_scored_per_circuit": {
+    "dj_5q": 2520,
+    "ghz_5q": 2520,
+    "graphstate_5q": 2520,
+    "qft_5q": 2520,
+    "wstate_5q": 2520
+  },
+  "by_circuit": {
+    "dj_5q": {
+      "num_layouts_scored": 2520,
+      "layout_enumeration_seconds": 0.0010748000004241476,
+      "gnn_selected_layout": [
+        0,
+        2,
+        3,
+        5,
+        1
+      ],
+      "gnn_selected_predicted_swaps": 1.3067407608032227,
+      "gnn_selected_actual": {
+        "swap_count": 1,
+        "total_swap_operations": 1,
+        "source_swap_count": 0,
+        "cx_count": 4,
+        "two_qubit_gate_count": 5,
+        "depth": 15,
+        "total_gates": 37,
+        "compile_seconds": 0.005775599998742109,
+        "layout": [
+          0,
+          2,
+          3,
+          5,
+          1
+        ],
+        "layout_scoring_seconds": 2.1297030999994604,
+        "end_to_end_seconds": 2.1365534999986266,
+        "layout_enumeration_seconds": 0.0010748000004241476,
+        "predicted_swap_count": 1.3067407608032227
+      },
+      "default_sabre": {
+        "swap_count": 1,
+        "total_swap_operations": 1,
+        "source_swap_count": 0,
+        "cx_count": 4,
+        "two_qubit_gate_count": 5,
+        "depth": 12,
+        "total_gates": 37,
+        "compile_seconds": 0.006739899999956833,
+        "layout_scoring_seconds": 0.0,
+        "end_to_end_seconds": 0.006739899999956833,
+        "layout": "[1,4,5,6,3]"
+      },
+      "fixed_layout": {
+        "swap_count": 5,
+        "total_swap_operations": 5,
+        "source_swap_count": 0,
+        "cx_count": 4,
+        "two_qubit_gate_count": 9,
+        "depth": 18,
+        "total_gates": 41,
+        "compile_seconds": 0.005125699999553035,
+        "layout": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "layout_scoring_seconds": 0.0,
+        "end_to_end_seconds": 0.005125699999553035
+      },
+      "random_layout_sample": {
+        "swap_count": 3.97,
+        "swap_std": 1.2202868515230345,
+        "swap_min": 2,
+        "swap_max": 6,
+        "depth": 18.38,
+        "total_gates": 39.97,
+        "cx_count": 4.0,
+        "two_qubit_gate_count": 7.97,
+        "compile_seconds": 0.005997349999999999,
+        "layout_scoring_seconds": 0.0,
+        "end_to_end_seconds": 0.005997349999999999,
+        "layout": "random sample summary",
+        "sample_count": 100
+      },
+      "exhaustive_oracle": {
+        "swap_count": 1,
+        "depth": 15,
+        "total_gates": 37,
+        "cx_count": 4,
+        "two_qubit_gate_count": 5,
+        "compile_seconds": 15.244385999999999,
+        "single_candidate_route_seconds": 0.003944,
+        "layout_scoring_seconds": 0.0,
+        "end_to_end_seconds": 15.244385999999999,
+        "layout": [
+          0,
+          3,
+          2,
+          5,
+          1
+        ]
+      },
+      "oracle_gap_swaps": 0,
+      "swap_reduction_percent": {
+        "vs_default_sabre_pct": 0.0,
+        "vs_fixed_layout_pct": 80.0
+      },
+      "selected_label_swap_count": 1
+    },
+    "ghz_5q": {
+      "num_layouts_scored": 2520,
+      "layout_enumeration_seconds": 0.0004727000014099758,
+      "gnn_selected_layout": [
+        0,
+        1,
+        3,
+        5,
+        4
+      ],
+      "gnn_selected_predicted_swaps": 0.0,
+      "gnn_selected_actual": {
+        "swap_count": 0,
+        "total_swap_operations": 0,
+        "source_swap_count": 0,
+        "cx_count": 4,
+        "two_qubit_gate_count": 4,
+        "depth": 7,
+        "total_gates": 7,
+        "compile_seconds": 0.006110999998782063,
+        "layout": [
+          0,
+          1,
+          3,
+          5,
+          4
+        ],
+        "layout_scoring_seconds": 1.7787811999987753,
+        "end_to_end_seconds": 1.7853648999989673,
+        "layout_enumeration_seconds": 0.0004727000014099758,
+        "predicted_swap_count": 0.0
+      },
+      "default_sabre": {
+        "swap_count": 1,
+        "total_swap_operations": 1,
+        "source_swap_count": 0,
+        "cx_count": 4,
+        "two_qubit_gate_count": 5,
+        "depth": 7,
+        "total_gates": 8,
+        "compile_seconds": 0.0058613000001059845,
+        "layout_scoring_seconds": 0.0,
+        "end_to_end_seconds": 0.0058613000001059845,
+        "layout": "[1,0,3,5,6]"
+      },
+      "fixed_layout": {
+        "swap_count": 3,
+        "total_swap_operations": 3,
+        "source_swap_count": 0,
+        "cx_count": 4,
+        "two_qubit_gate_count": 7,
+        "depth": 10,
+        "total_gates": 10,
+        "compile_seconds": 0.0047428999987459974,
+        "layout": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "layout_scoring_seconds": 0.0,
+        "end_to_end_seconds": 0.0047428999987459974
+      },
+      "random_layout_sample": {
+        "swap_count": 4.37,
+        "swap_std": 1.5469647701224485,
+        "swap_min": 1,
+        "swap_max": 8,
+        "depth": 9.89,
+        "total_gates": 11.37,
+        "cx_count": 4.0,
+        "two_qubit_gate_count": 8.37,
+        "compile_seconds": 0.00496281,
+        "layout_scoring_seconds": 0.0,
+        "end_to_end_seconds": 0.00496281,
+        "layout": "random sample summary",
+        "sample_count": 100
+      },
+      "exhaustive_oracle": {
+        "swap_count": 0,
+        "depth": 7,
+        "total_gates": 7,
+        "cx_count": 4,
+        "two_qubit_gate_count": 4,
+        "compile_seconds": 12.571917,
+        "single_candidate_route_seconds": 0.003848,
+        "layout_scoring_seconds": 0.0,
+        "end_to_end_seconds": 12.571917,
+        "layout": [
+          6,
+          5,
+          3,
+          1,
+          2
+        ]
+      },
+      "oracle_gap_swaps": 0,
+      "swap_reduction_percent": {
+        "vs_default_sabre_pct": 100.0,
+        "vs_fixed_layout_pct": 100.0
+      },
+      "selected_label_swap_count": 0
+    },
+    "graphstate_5q": {
+      "num_layouts_scored": 2520,
+      "layout_enumeration_seconds": 0.0003668000008474337,
+      "gnn_selected_layout": [
+        0,
+        1,
+        5,
+        3,
+        2
+      ],
+      "gnn_selected_predicted_swaps": 3.143218994140625,
+      "gnn_selected_actual": {
+        "swap_count": 3,
+        "total_swap_operations": 3,
+        "source_swap_count": 0,
+        "cx_count": 5,
+        "two_qubit_gate_count": 8,
+        "depth": 32,
+        "total_gates": 53,
+        "compile_seconds": 0.005927000000156113,
+        "layout": [
+          0,
+          1,
+          5,
+          3,
+          2
+        ],
+        "layout_scoring_seconds": 2.080713499999547,
+        "end_to_end_seconds": 2.0870073000005505,
+        "layout_enumeration_seconds": 0.0003668000008474337,
+        "predicted_swap_count": 3.143218994140625
+      },
+      "default_sabre": {
+        "swap_count": 2,
+        "total_swap_operations": 2,
+        "source_swap_count": 0,
+        "cx_count": 5,
+        "two_qubit_gate_count": 7,
+        "depth": 22,
+        "total_gates": 52,
+        "compile_seconds": 0.004792599998836522,
+        "layout_scoring_seconds": 0.0,
+        "end_to_end_seconds": 0.004792599998836522,
+        "layout": "[3,1,5,4,6]"
+      },
+      "fixed_layout": {
+        "swap_count": 4,
+        "total_swap_operations": 4,
+        "source_swap_count": 0,
+        "cx_count": 5,
+        "two_qubit_gate_count": 9,
+        "depth": 31,
+        "total_gates": 54,
+        "compile_seconds": 0.005801299999802723,
+        "layout": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "layout_scoring_seconds": 0.0,
+        "end_to_end_seconds": 0.005801299999802723
+      },
+      "random_layout_sample": {
+        "swap_count": 5.3,
+        "swap_std": 1.466287829861518,
+        "swap_min": 2,
+        "swap_max": 9,
+        "depth": 25.97,
+        "total_gates": 55.3,
+        "cx_count": 5.0,
+        "two_qubit_gate_count": 10.3,
+        "compile_seconds": 0.006957110000000001,
+        "layout_scoring_seconds": 0.0,
+        "end_to_end_seconds": 0.006957110000000001,
+        "layout": "random sample summary",
+        "sample_count": 100
+      },
+      "exhaustive_oracle": {
+        "swap_count": 2,
+        "depth": 23,
+        "total_gates": 52,
+        "cx_count": 5,
+        "two_qubit_gate_count": 7,
+        "compile_seconds": 16.53078,
+        "single_candidate_route_seconds": 0.004391,
+        "layout_scoring_seconds": 0.0,
+        "end_to_end_seconds": 16.53078,
+        "layout": [
+          5,
+          3,
+          0,
+          2,
+          1
+        ]
+      },
+      "oracle_gap_swaps": 1,
+      "swap_reduction_percent": {
+        "vs_default_sabre_pct": -50.0,
+        "vs_fixed_layout_pct": 25.0
+      },
+      "selected_label_swap_count": 3
+    },
+    "qft_5q": {
+      "num_layouts_scored": 2520,
+      "layout_enumeration_seconds": 0.00026950000028591603,
+      "gnn_selected_layout": [
+        3,
+        0,
+        2,
+        1,
+        5
+      ],
+      "gnn_selected_predicted_swaps": 7.6111955642700195,
+      "gnn_selected_actual": {
+        "swap_count": 9,
+        "total_swap_operations": 11,
+        "source_swap_count": 2,
+        "cx_count": 20,
+        "two_qubit_gate_count": 31,
+        "depth": 52,
+        "total_gates": 76,
+        "compile_seconds": 0.008488299999953597,
+        "layout": [
+          3,
+          0,
+          2,
+          1,
+          5
+        ],
+        "layout_scoring_seconds": 2.2393578000010166,
+        "end_to_end_seconds": 2.248115600001256,
+        "layout_enumeration_seconds": 0.00026950000028591603,
+        "predicted_swap_count": 7.6111955642700195
+      },
+      "default_sabre": {
+        "swap_count": 4,
+        "total_swap_operations": 6,
+        "source_swap_count": 2,
+        "cx_count": 20,
+        "two_qubit_gate_count": 26,
+        "depth": 46,
+        "total_gates": 71,
+        "compile_seconds": 0.007280600000740378,
+        "layout_scoring_seconds": 0.0,
+        "end_to_end_seconds": 0.007280600000740378,
+        "layout": "[5,2,0,3,1]"
+      },
+      "fixed_layout": {
+        "swap_count": 11,
+        "total_swap_operations": 13,
+        "source_swap_count": 2,
+        "cx_count": 20,
+        "two_qubit_gate_count": 33,
+        "depth": 57,
+        "total_gates": 78,
+        "compile_seconds": 0.004900099998849328,
+        "layout": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "layout_scoring_seconds": 0.0,
+        "end_to_end_seconds": 0.004900099998849328
+      },
+      "random_layout_sample": {
+        "swap_count": 10.55,
+        "swap_std": 1.6755596080116042,
+        "swap_min": 5,
+        "swap_max": 15,
+        "depth": 52.57,
+        "total_gates": 77.55,
+        "cx_count": 20.0,
+        "two_qubit_gate_count": 32.55,
+        "compile_seconds": 0.006302429999999999,
+        "layout_scoring_seconds": 0.0,
+        "end_to_end_seconds": 0.006302429999999999,
+        "layout": "random sample summary",
+        "sample_count": 100
+      },
+      "exhaustive_oracle": {
+        "swap_count": 5,
+        "depth": 47,
+        "total_gates": 72,
+        "cx_count": 20,
+        "two_qubit_gate_count": 27,
+        "compile_seconds": 15.867903000000002,
+        "single_candidate_route_seconds": 0.003898,
+        "layout_scoring_seconds": 0.0,
+        "end_to_end_seconds": 15.867903000000002,
+        "layout": [
+          5,
+          1,
+          2,
+          3,
+          0
+        ]
+      },
+      "oracle_gap_swaps": 4,
+      "swap_reduction_percent": {
+        "vs_default_sabre_pct": -125.0,
+        "vs_fixed_layout_pct": 18.181818181818183
+      },
+      "selected_label_swap_count": 9
+    },
+    "wstate_5q": {
+      "num_layouts_scored": 2520,
+      "layout_enumeration_seconds": 0.00034049999885610305,
+      "gnn_selected_layout": [
+        0,
+        1,
+        3,
+        5,
+        4
+      ],
+      "gnn_selected_predicted_swaps": 0.30034589767456055,
+      "gnn_selected_actual": {
+        "swap_count": 0,
+        "total_swap_operations": 0,
+        "source_swap_count": 0,
+        "cx_count": 8,
+        "two_qubit_gate_count": 8,
+        "depth": 45,
+        "total_gates": 73,
+        "compile_seconds": 0.006437500000174623,
+        "layout": [
+          0,
+          1,
+          3,
+          5,
+          4
+        ],
+        "layout_scoring_seconds": 1.535538699999961,
+        "end_to_end_seconds": 1.5423166999989917,
+        "layout_enumeration_seconds": 0.00034049999885610305,
+        "predicted_swap_count": 0.30034589767456055
+      },
+      "default_sabre": {
+        "swap_count": 1,
+        "total_swap_operations": 1,
+        "source_swap_count": 0,
+        "cx_count": 8,
+        "two_qubit_gate_count": 9,
+        "depth": 46,
+        "total_gates": 74,
+        "compile_seconds": 0.0057054999997490086,
+        "layout_scoring_seconds": 0.0,
+        "end_to_end_seconds": 0.0057054999997490086,
+        "layout": "[5,3,2,1,0]"
+      },
+      "fixed_layout": {
+        "swap_count": 4,
+        "total_swap_operations": 4,
+        "source_swap_count": 0,
+        "cx_count": 8,
+        "two_qubit_gate_count": 12,
+        "depth": 47,
+        "total_gates": 77,
+        "compile_seconds": 0.00510769999891636,
+        "layout": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "layout_scoring_seconds": 0.0,
+        "end_to_end_seconds": 0.00510769999891636
+      },
+      "random_layout_sample": {
+        "swap_count": 5.24,
+        "swap_std": 2.0790382391865716,
+        "swap_min": 0,
+        "swap_max": 9,
+        "depth": 47.82,
+        "total_gates": 78.24,
+        "cx_count": 8.0,
+        "two_qubit_gate_count": 13.24,
+        "compile_seconds": 0.004369619999999999,
+        "layout_scoring_seconds": 0.0,
+        "end_to_end_seconds": 0.004369619999999999,
+        "layout": "random sample summary",
+        "sample_count": 100
+      },
+      "exhaustive_oracle": {
+        "swap_count": 0,
+        "depth": 45,
+        "total_gates": 73,
+        "cx_count": 8,
+        "two_qubit_gate_count": 8,
+        "compile_seconds": 11.570060999999999,
+        "single_candidate_route_seconds": 0.00337,
+        "layout_scoring_seconds": 0.0,
+        "end_to_end_seconds": 11.570060999999999,
+        "layout": [
+          2,
+          1,
+          3,
+          5,
+          6
+        ]
+      },
+      "oracle_gap_swaps": 0,
+      "swap_reduction_percent": {
+        "vs_default_sabre_pct": 100.0,
+        "vs_fixed_layout_pct": 100.0
+      },
+      "selected_label_swap_count": 0
+    }
+  },
+  "caveats": [
+    "Default SABRE chooses its own layout; GNN-selected routing fixes the initial layout.",
+    "The exhaustive oracle is a reference requiring all layouts to be routed; it is not a deployable baseline.",
+    "Labels predict fixed-layout SABRE SWAP cost and do not by themselves prove fidelity or wall-clock speedup.",
+    "Exact state fidelity and noisy fidelity were not computed in this Phase 2 routing experiment."
+  ]
+}

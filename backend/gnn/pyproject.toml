@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=75", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gnn-qubit-allocation"
+version = "1.0.0"
+description = "Reproducible Phase 2: mapping-aware GNN for quantum qubit allocation"
+readme = "README.md"
+requires-python = ">=3.11,<3.14"
+dependencies = [
+  "torch>=2.14,<2.15",
+  "torch-geometric>=2.7,<3.0",
+  "qiskit>=2.2,<3.0",
+  "qiskit-aer>=0.17,<1.0",
+  "qiskit-ibm-runtime>=0.43,<1.0",
+  "mqt.bench>=2.2.3,<3.0",
+  "numpy>=2.0,<3.0",
+  "pandas>=2.2,<3.0",
+  "scikit-learn>=1.7,<2.0",
+  "matplotlib>=3.9,<4.0",
+  "networkx>=3.4,<4.0",
+  "pytest>=8.3,<10.0",
+  "tabulate>=0.9,<1.0",
+  "scipy>=1.14,<2.0"
+]
+
+[project.scripts]
+phase2-check-env = "qubit_allocation.hardware:main_environment_check"
+phase2-generate = "qubit_allocation.dataset:main_generate"
+phase2-validate = "qubit_allocation.dataset:main_validate"
+phase2-train = "qubit_allocation.train:main"
+phase2-evaluate = "qubit_allocation.evaluate:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+addopts = "-ra"

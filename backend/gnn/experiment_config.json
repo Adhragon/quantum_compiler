@@ -1,0 +1,48 @@
+{
+  "project_name": "Quantum Compiler - GNN-Based Qubit Allocation",
+  "phase": 2,
+  "seed": 42,
+  "hardware": {
+    "backend": "FakeJakartaV2",
+    "expected_physical_qubits": 7
+  },
+  "benchmarks": [
+    {"name": "dj", "label": "dj_5q", "logical_qubits": 5, "source": "MQT Bench"},
+    {"name": "ghz", "label": "ghz_5q", "logical_qubits": 5, "source": "MQT Bench"},
+    {"name": "graphstate", "label": "graphstate_5q", "logical_qubits": 5, "source": "MQT Bench"},
+    {"name": "qft", "label": "qft_5q", "logical_qubits": 5, "source": "MQT Bench"},
+    {"name": "wstate", "label": "wstate_5q", "logical_qubits": 5, "source": "MQT Bench"}
+  ],
+  "dataset": {
+    "exhaustive": true,
+    "output_csv": "data/phase2_data.csv",
+    "manifest": "data/dataset_manifest.json"
+  },
+  "model": {
+    "hidden_dim": 64,
+    "gcn_layers": 2,
+    "mlp_hidden_dim": 128,
+    "dropout": 0.15,
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "batch_size": 128,
+    "epochs": 250,
+    "patience": 25
+  },
+  "split": {
+    "train": 0.70,
+    "validation": 0.15,
+    "test": 0.15
+  },
+  "routing": {
+    "method": "sabre",
+    "layout_method_fixed": "trivial",
+    "basis_gates": ["cx", "id", "rz", "sx", "x", "swap"],
+    "optimization_level": 0,
+    "seed_transpiler": 42
+  },
+  "evaluation": {
+    "random_layout_samples": 100,
+    "all_candidate_layouts": 2520
+  }
+}
