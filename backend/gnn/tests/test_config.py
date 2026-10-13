@@ -5,4 +5,4 @@ def test_project_config_is_valid():
     cfg = load_config()
     validate_config(cfg)
     assert cfg["hardware"]["expected_physical_qubits"] == 7
-    assert len(cfg["benchmarks"]) == 3
+    assert len(cfg["benchmarks"]) == 5

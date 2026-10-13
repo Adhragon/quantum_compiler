@@ -56,21 +56,26 @@ N_TRIALS = 1  # increase to average timing/metrics over multiple runs
 # Compilers under test
 # ---------------------------------------------------------------------------
 
-def run_sabre(qc, backend):
+def _sabre_kwargs(initial_layout=None):
+    """SABRE at SABRE_OPT_LEVEL. With initial_layout, SABRE only routes from that
+    fixed placement (used for GNN-selected layouts); otherwise it also picks
+    the layout."""
+    kwargs = dict(optimization_level=SABRE_OPT_LEVEL, routing_method="sabre", seed_transpiler=SEED)
+    if initial_layout is None:
+        kwargs["layout_method"] = "sabre"
+    else:
+        kwargs["initial_layout"] = list(initial_layout)
+    return kwargs
+
+
+def run_sabre(qc, backend, initial_layout=None):
     t0 = time.perf_counter()
-    compiled = transpile(
-        qc,
-        backend=backend,
-        optimization_level=SABRE_OPT_LEVEL,
-        layout_method="sabre",
-        routing_method="sabre",
-        seed_transpiler=SEED,
-    )
+    compiled = transpile(qc, backend=backend, **_sabre_kwargs(initial_layout))
     t1 = time.perf_counter()
-    return compiled, (t1 - t0), count_sabre_swaps(qc, backend)
+    return compiled, (t1 - t0), count_sabre_swaps(qc, backend, initial_layout)
 
 
-def count_sabre_swaps(qc, backend):
+def count_sabre_swaps(qc, backend, initial_layout=None):
     """SWAPs inserted by SABRE routing. count_swaps(compiled) always reports 0
     for SABRE because BasisTranslator later decomposes every SWAP into 3 CXs,
     so instead re-run the identical (seeded) transpile with a callback and
@@ -85,15 +90,7 @@ def count_sabre_swaps(qc, backend):
             state["inserted"] += max(0, n - state["prev"])
         state["prev"] = n
 
-    transpile(
-        qc,
-        backend=backend,
-        optimization_level=SABRE_OPT_LEVEL,
-        layout_method="sabre",
-        routing_method="sabre",
-        seed_transpiler=SEED,
-        callback=cb,
-    )
+    transpile(qc, backend=backend, callback=cb, **_sabre_kwargs(initial_layout))
     return state["inserted"]
 
 def run_qmap(qc, backend):

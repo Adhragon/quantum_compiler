@@ -1,6 +1,6 @@
 # The exact requested PyTorch release is pinned. For CPU-only Linux, consult the
-# official PyTorch 2.14.0 wheel instructions if PyPI resolution selects a CUDA build.
-torch==2.14.0
+# official PyTorch 2.14.x wheel instructions if PyPI resolution selects a CUDA build.
+torch>=2.14,<2.15
 torch-geometric>=2.7,<3.0
 qiskit>=2.2,<3.0
 qiskit-aer>=0.17,<1.0

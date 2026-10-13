@@ -27,7 +27,7 @@ def main() -> None:
     if not env.get("environment_valid", False):
         raise SystemExit(
             "Environment verification failed. See environment_report.json. "
-            "The pipeline requires stable torch==2.14.0 and compatible Qiskit/MQT Bench dependencies."
+            "The pipeline requires torch 2.14.x and compatible Qiskit/MQT Bench dependencies."
         )
 
     # Import quantum/ML modules only after environment verification so that the

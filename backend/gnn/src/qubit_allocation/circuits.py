@@ -11,27 +11,6 @@ from qiskit import QuantumCircuit, transpile
 ROUTING_BASIS_GATES = ["cx", "id", "rz", "sx", "x", "swap"]
 
 
-def _get_benchmark_level() -> Any:
-    try:
-        from mqt.bench import BenchmarkLevel
-    except ImportError:
-        try:
-            from mqt.bench.benchmark_generation import BenchmarkLevel
-        except ImportError as exc:
-            raise RuntimeError(
-                "Cannot import MQT Bench BenchmarkLevel. "
-                "Install the pinned mqt.bench dependency."
-            ) from exc
-
-    for candidate in ("ALG", "ALGORITHMIC"):
-        if hasattr(BenchmarkLevel, candidate):
-            return getattr(BenchmarkLevel, candidate)
-
-    raise RuntimeError(
-        f"No algorithmic level found in BenchmarkLevel: {list(BenchmarkLevel)}"
-    )
-
-
 def strip_nonunitary(circuit: QuantumCircuit) -> QuantumCircuit:
     """Remove measurements/barriers and preserve quantum-register width."""
     clean = QuantumCircuit(circuit.num_qubits, name=circuit.name)
@@ -71,48 +50,46 @@ def prepare_for_routing(
     return prepared
 
 
+def _shared_bench_loader():
+    """The repo-wide circuit loader in backend/config.py, so every phase
+    (baselines, GNN, RL) is scored on byte-identical circuits (graphstate is
+    seeded there)."""
+    import sys
+    from pathlib import Path
+
+    backend_dir = str(Path(__file__).resolve().parents[3])  # .../backend
+    if backend_dir not in sys.path:
+        sys.path.insert(0, backend_dir)
+    from config import get_bench_circuit
+    return get_bench_circuit
+
+
 def load_benchmarks(
     config: dict[str, Any],
 ) -> dict[str, QuantumCircuit]:
-    """Load configured MQT Bench circuits with deterministic generation."""
+    """Load configured MQT Bench circuits via the shared backend loader."""
     try:
-        from mqt.bench import get_benchmark
+        get_bench_circuit = _shared_bench_loader()
     except ImportError as exc:
         raise RuntimeError(
-            "MQT Bench is required; hand-built fallback circuits are disabled."
+            "Could not import backend/config.py (shared circuit loader). "
+            "This project must live at backend/gnn/ inside the main repo."
         ) from exc
 
-    level = _get_benchmark_level()
     circuits: dict[str, QuantumCircuit] = {}
-
-    # Use the same configured seed for benchmark generation and preprocessing.
     seed = int(config["seed"])
 
     for spec in config["benchmarks"]:
         expected_n = int(spec["logical_qubits"])
         benchmark_name = spec["name"]
 
-        # Graph-state circuits may be generated randomly.
-        # Pass the seed to MQT Bench itself, not only to Qiskit transpilation.
-        benchmark_kwargs: dict[str, Any] = {}
-
-        if benchmark_name.lower() == "graphstate":
-            benchmark_kwargs["seed"] = seed
-
         try:
-            original = get_benchmark(
-                benchmark=benchmark_name,
-                level=level,
-                circuit_size=expected_n,
-                **benchmark_kwargs,
-            )
+            original = get_bench_circuit(benchmark_name, expected_n)
         except Exception as exc:
             raise RuntimeError(
                 f"Failed to load MQT Bench benchmark {benchmark_name!r} "
                 f"at {expected_n} qubits. "
-                "No substitute circuit will be used. "
-                "Check whether this MQT Bench version supports the "
-                "configured benchmark seed."
+                "No substitute circuit will be used."
             ) from exc
 
         if original.num_qubits != expected_n:

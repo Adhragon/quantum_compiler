@@ -11,7 +11,8 @@ Formulation (Pozzi et al. 2022 style, simplified):
     max_swaps SWAPs (truncated; finish with complete_with_shortest_paths()).
 
 Observation (flat float32 vector, fixed length so Phase 4 can append GNN
-embeddings via extra_obs_fn):
+embeddings via extra_obs_fn(env), which sees env.task and the current
+layout env.l2p):
   [ layout (n_phys) | lookahead excess distances (lookahead) |
     per-edge front-layer distance delta (n_edges) |
     per-edge lookahead distance delta (n_edges) |
@@ -57,7 +58,7 @@ class RoutingEnv(gym.Env):
         distance_coef: float = 0.5,
         done_bonus: float = 5.0,
         extra_obs_dim: int = 0,
-        extra_obs_fn: Callable[[RoutingTask], np.ndarray] | None = None,
+        extra_obs_fn: Callable[[RoutingEnv], np.ndarray] | None = None,
     ):
         super().__init__()
         backend = backend or get_backend()
@@ -292,7 +293,7 @@ class RoutingEnv(gym.Env):
 
         parts = [layout, look, d_front, d_look, last, progress]
         if self.extra_obs_dim:
-            extra = np.asarray(self.extra_obs_fn(self.task), dtype=np.float64)
+            extra = np.asarray(self.extra_obs_fn(self), dtype=np.float64)
             parts.append(np.clip(extra.reshape(self.extra_obs_dim), -1, 1))
         return np.concatenate(parts).astype(np.float32)
 

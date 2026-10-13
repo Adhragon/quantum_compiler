@@ -9,7 +9,9 @@
   "benchmarks": [
     {"name": "dj", "label": "dj_5q", "logical_qubits": 5, "source": "MQT Bench"},
     {"name": "ghz", "label": "ghz_5q", "logical_qubits": 5, "source": "MQT Bench"},
-    {"name": "graphstate", "label": "graphstate_5q", "logical_qubits": 5, "source": "MQT Bench"}
+    {"name": "graphstate", "label": "graphstate_5q", "logical_qubits": 5, "source": "MQT Bench"},
+    {"name": "qft", "label": "qft_5q", "logical_qubits": 5, "source": "MQT Bench"},
+    {"name": "wstate", "label": "wstate_5q", "logical_qubits": 5, "source": "MQT Bench"}
   ],
   "dataset": {
     "exhaustive": true,

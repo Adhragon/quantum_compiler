@@ -9,7 +9,7 @@ description = "Reproducible Phase 2: mapping-aware GNN for quantum qubit allocat
 readme = "README.md"
 requires-python = ">=3.11,<3.14"
 dependencies = [
-  "torch==2.14.0",
+  "torch>=2.14,<2.15",
   "torch-geometric>=2.7,<3.0",
   "qiskit>=2.2,<3.0",
   "qiskit-aer>=0.17,<1.0",

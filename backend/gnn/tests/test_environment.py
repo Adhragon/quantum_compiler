@@ -4,8 +4,8 @@ from qubit_allocation.hardware import load_fake_jakarta
 
 
 def test_required_torch_release_is_installed():
-    assert torch.__version__.split("+", 1)[0] == "2.14.0", (
-        f"Required torch==2.14.0, found {torch.__version__}"
+    assert torch.__version__.split("+", 1)[0].startswith("2.14."), (
+        f"Required torch 2.14.x, found {torch.__version__}"
     )
 
 
