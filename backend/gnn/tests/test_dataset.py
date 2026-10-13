@@ -7,8 +7,8 @@ from qiskit.transpiler import CouplingMap
 
 def test_dataset_validator_detects_valid_partial_file(tmp_path):
     rows = []
-    layouts = [[0, 1, 2, 3, 4], [0, 2, 1, 3, 4], [1, 0, 2, 3, 4]]
-    names = ["dj_5q", "ghz_5q", "graphstate_5q"]
+    layouts = [[0, 1, 2, 3, 4], [0, 2, 1, 3, 4], [1, 0, 2, 3, 4], [2, 0, 1, 3, 4], [3, 0, 1, 2, 4]]
+    names = ["dj_5q", "ghz_5q", "graphstate_5q", "qft_5q", "wstate_5q"]
     for name, layout in zip(names, layouts):
         rows.append({
             "circuit": name, "logical_qubits": 5, "physical_qubits": 7,
@@ -20,10 +20,10 @@ def test_dataset_validator_detects_valid_partial_file(tmp_path):
     csv_path = tmp_path / "phase2_data.csv"
     manifest_path = tmp_path / "manifest.json"
     pd.DataFrame(rows, columns=DATA_COLUMNS).to_csv(csv_path, index=False)
-    manifest_path.write_text(json.dumps({"rows_written": 3, "status": "complete", "exhaustive": False}), encoding="utf-8")
+    manifest_path.write_text(json.dumps({"rows_written": 5, "status": "complete", "exhaustive": False}), encoding="utf-8")
     report = validate_dataset(csv_path, manifest_path, strict=False)
     assert report["valid"]
-    assert report["rows"] == 3
+    assert report["rows"] == 5
 
 
 def test_fixed_layout_routing_returns_real_metrics():

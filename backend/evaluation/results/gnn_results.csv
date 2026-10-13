@@ -1,0 +1,6 @@
+circuit,method,depth,swaps,total_gates,compile_time_s,estimated_fidelity,state_fidelity,leakage,notes
+ghz,GNN_layout+SABRE,7,0,7,1.0758441999987554,0.9622430150295642,1.0,-4.440892098500626e-16,"layout=[0, 1, 3, 5, 4] predicted_swaps=0.00 scoring_s=1.043"
+dj,GNN_layout+SABRE,21,1,36,1.895714999998745,0.9527399550392546,0.9999999999999991,-2.886579864025407e-15,"layout=[0, 2, 3, 5, 1] predicted_swaps=1.31 scoring_s=1.881"
+graphstate,GNN_layout+SABRE,30,3,53,1.9827349999995931,0.8828108522327368,0.9999999999999998,-4.440892098500626e-16,"layout=[0, 1, 5, 3, 2] predicted_swaps=3.14 scoring_s=1.951"
+qft,GNN_layout+SABRE,56,6,86,1.7044214000015927,0.7316752481232806,1.0000000000000004,-8.881784197001252e-16,"layout=[3, 0, 2, 1, 5] predicted_swaps=7.61 scoring_s=1.691"
+wstate,GNN_layout+SABRE,25,0,48,1.5480622000013682,0.9214641768468759,1.0000000000000004,1.1102230246251565e-16,"layout=[0, 1, 3, 5, 4] predicted_swaps=0.30 scoring_s=1.531"
