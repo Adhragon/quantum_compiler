@@ -3,3 +3,6 @@ venv
 __pycache__/
 *.py[cod]
 
+rl/logs/
+backend/rl/logs/
+!backend/evaluation/results/*.csv
